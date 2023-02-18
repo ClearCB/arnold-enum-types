@@ -1,5 +1,8 @@
 package edu.craptocraft.arnoldenumtypes;
 
+import java.util.EnumSet;
+import java.util.Set;
+
 public enum Planeta {
     MERCURY(3.303e+23, 2.4397e6),
     VENUS(4.869e+24, 6.0518e6),
@@ -29,5 +32,30 @@ public enum Planeta {
 
     private double getconstanteGravedad() {
         return this.G;
+    }
+
+    public double gravedadSuperficie() {
+        return this.getconstanteGravedad() * (this.getMasa() / Math.pow(this.getRadio(), 2.0));
+    }
+
+    // Overloading the method
+    public double gravedadSuperficie(Planeta planeta) {
+        return planeta.getconstanteGravedad() * (planeta.getMasa() / Math.pow(planeta.getRadio(), 2.0));
+    }
+
+    public double masaEnPlaneta(double pesoEnTierra) {
+        return pesoEnTierra / this.gravedadSuperficie(EARTH);
+    }
+
+    public double pesoSuperficie(double peso) {
+        return this.masaEnPlaneta(peso) * this.gravedadSuperficie();
+    }
+
+    public static Set<Planeta> getPlanetasTerrestres(){
+        return EnumSet.range(MERCURY, MARS);
+
+    }
+    public static Set<Planeta> getPlanetasGaseosos(){
+        return EnumSet.complementOf((EnumSet<Planeta>) getPlanetasTerrestres());
     }
 }

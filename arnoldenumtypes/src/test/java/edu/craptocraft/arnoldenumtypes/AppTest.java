@@ -1,6 +1,7 @@
 package edu.craptocraft.arnoldenumtypes;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -61,5 +62,42 @@ public class AppTest {
 		Planeta planeta = Planeta.MERCURY;
 		double pesoHumano = 175;
 		assertEquals(66.107583, planeta.pesoSuperficie(pesoHumano), 0.001);
+	}
+    	
+	@Test
+	public void ArrayPlanetasTerrestresTest(){
+
+		String[] planetasTerrestres = new String[4];
+		int planetasIncluidos = 0;
+		
+		for(int i=Planeta.MERCURY.ordinal(); i<Planeta.JUPITER.ordinal(); i++){
+			planetasTerrestres[i] = Planeta.values()[i].name();
+			planetasIncluidos += 1;
+		}
+		assertThat(planetasIncluidos).isEqualTo(4);
+		
+		for(Planeta planeta : Planeta.getPlanetasTerrestres()){
+			assertThat(planeta.name()).isIn( (Object[]) planetasTerrestres);
+		}		
+	}
+
+    @Test
+	public void ArrayGigantesGaseosos() {
+
+		String[] gigantesGaseosos = new String[4];
+		int planetasIncluidos = 0;
+
+		byte index = 0;
+		for (int i = Planeta.JUPITER.ordinal(); i <= Planeta.NEPTUNE.ordinal(); i++) {
+			gigantesGaseosos[index] = Planeta.values()[i].name();
+			planetasIncluidos += 1;
+			index += 1;
+		}
+		assertThat(planetasIncluidos).isEqualTo(4);
+		assertThat(planetas).doesNotContainNull();
+
+		for (Planeta planeta : Planeta.getPlanetasGaseosos()) {
+			assertThat(planeta.name()).isIn( (Object[]) gigantesGaseosos);
+		}
 	}
 }
