@@ -49,4 +49,17 @@ public class AppTest {
 		assertThat(planeta.getRadio()).isEqualTo(2.4397e+6);
 	}
 
+    @Test
+	public void planetaNamesIteratorTest() {
+		for (Planeta planeta : Planeta.values()) {
+			assertThat(planeta.name()).isIn( (Object[]) planetas);
+		}
+	}
+
+    @Test
+	public void pesoSuperficieMercurioTest() {
+		Planeta planeta = Planeta.MERCURY;
+		double pesoHumano = 175;
+		assertEquals(66.107583, planeta.pesoSuperficie(pesoHumano), 0.001);
+	}
 }
